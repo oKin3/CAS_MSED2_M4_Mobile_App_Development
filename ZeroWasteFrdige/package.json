@@ -1,0 +1,16 @@
+{
+  "name": "ZeroWasteFrdige",
+  "main": "app/app.ts",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@nativescript/core": "^8.3.0",
+    "@nativescript/theme": "~3.0.2"
+  },
+  "devDependencies": {
+    "@nativescript/preview-cli": "1.0.12",
+    "@nativescript/types": "~8.6.0",
+    "@nativescript/webpack": "~5.0.18",
+    "typescript": "~5.2.0"
+  }
+}
