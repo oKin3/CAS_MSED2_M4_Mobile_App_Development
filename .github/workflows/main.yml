@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "feature/pipeline" ]
 
+env:
+  PROJECT_PATH: "ZeroWasteFrdige"
+
 jobs:
 
 # ***************************** #
@@ -28,4 +31,4 @@ jobs:
       run: npm install -g nativescript
 
     - name: Build android
-      run: ns build android
+      run: ns build android --path ${{ env.PROJECT_PATH }}
