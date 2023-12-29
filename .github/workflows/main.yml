@@ -19,10 +19,13 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup NativeScript
-      uses: hrueger/setup-nativescript@v1.1.0
+    - name: Use Node.js
+      uses: actions/setup-node@v3
       with:
-        nativescript-version: '8.3.0'
+        node-version: '20.x'
+        
+    - name: Install NativeScript
+      run: npm install nativescript
 
     - name: Build android
       shell: pwsh
