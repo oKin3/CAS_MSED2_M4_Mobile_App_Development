@@ -1,0 +1,29 @@
+name: Build NativeScript Project
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+# ***************************** #
+# >>>>>>> Android build <<<<<<< #
+# ***************************** #
+  ns-android:
+    runs-on: windows-2022
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup NativeScript
+      uses: hrueger/setup-nativescript@v1.1.0
+      with:
+        nativescript-version: '8.3.0'
+
+    - name: Build android
+      shell: pwsh
+      run: ns build android
