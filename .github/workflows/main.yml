@@ -2,9 +2,9 @@ name: Build NativeScript Project
 
 on:
   push:
-    branches: [ "feature/pipeline" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "feature/pipeline" ]
+    branches: [ "main" ]
 
 env:
   PROJECT_PATH: "ZeroWasteFrdige"
