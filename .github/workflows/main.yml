@@ -2,9 +2,9 @@ name: Build NativeScript Project
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "feature/pipeline" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "feature/pipeline" ]
 
 jobs:
 
