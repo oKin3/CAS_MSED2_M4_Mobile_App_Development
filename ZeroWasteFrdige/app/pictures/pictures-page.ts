@@ -1,8 +1,8 @@
-import { Dialogs, TouchAction } from '@nativescript/core'
+import { Dialogs, ImageAsset, TouchAction } from '@nativescript/core'
 import { NavigatedData, Page } from '@nativescript/core'
 import { PictureViewModel } from './picture-view-model'
-import { takePicture } from '@nativescript/camera'
-import { ImageSource } from '@nativescript/core/image-source'
+import * as camera from '@nativescript/camera'
+import { Image } from '@nativescript/core'
 import { knownFolders } from '@nativescript/core'
 
 const appRootFolder = knownFolders.currentApp()
@@ -22,11 +22,13 @@ export function handleTakePicture() {
       }).then((result) => {
         if(result) {
             console.log('user is sure')
-            var milliseconds = (new Date).getTime
-            takePicture({width:300, height:300, keepAspectRatio:true}).then((function(img) {
-                let source = new ImageSource()
-                source.saveToFileAsync(appRootFolder.path + milliseconds , "png")
-                }))
+            camera.takePicture().then((imageAsset) => {
+                console.log("Result is an image asset instance")
+                var image = new Image()
+                image.src = imageAsset
+            }).catch((err) => {
+                console.log("Error -> " + err.message)
+            })
             }
         })
     }
