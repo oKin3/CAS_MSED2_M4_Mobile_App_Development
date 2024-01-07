@@ -10,4 +10,8 @@
     <TabViewItem title="Search" >
         <Frame defaultPage="search/search-page" />
     </TabViewItem>
+
+    <TabViewItem title="Pictures" >
+        <Frame defaultPage="pictures/pictures-page" />
+    </TabViewItem>
 </TabView>
