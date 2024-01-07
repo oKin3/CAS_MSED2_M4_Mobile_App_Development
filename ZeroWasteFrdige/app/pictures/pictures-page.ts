@@ -1,16 +1,13 @@
-import { Dialogs, ImageAsset, TouchAction } from '@nativescript/core'
+import { Dialogs } from '@nativescript/core'
 import { NavigatedData, Page } from '@nativescript/core'
 import { PictureViewModel } from './picture-view-model'
 import * as camera from '@nativescript/camera'
 import { Image } from '@nativescript/core'
-import { knownFolders } from '@nativescript/core'
-
-const appRootFolder = knownFolders.currentApp()
+import { requestPermissions } from '@nativescript/camera';
 
 export function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
   page.bindingContext = new PictureViewModel()
-  console.log(appRootFolder.path)
 }
 
 export function handleTakePicture() {
@@ -22,7 +19,7 @@ export function handleTakePicture() {
       }).then((result) => {
         if(result) {
             console.log('user is sure')
-            camera.takePicture().then((imageAsset) => {
+            camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true}).then((imageAsset) => {
                 console.log("Result is an image asset instance")
                 var image = new Image()
                 image.src = imageAsset
