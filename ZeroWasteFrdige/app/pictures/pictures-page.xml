@@ -4,9 +4,10 @@
         <Label text="Pictures" />
     </ActionBar>
 
-    <GridLayout class="page__content">
-        <Label class="page__content-placeholder" text="<!-- Picture page content goes here -->"></Label>
+    <GridLayout class="page__content" rows="115, 115">
+        <Button text="Take Picture" id="takePicture" tap="handleTakePicture" row="0"></Button>
+        <Button text="Select Picture" id="selectPicture" tap="selectImage" row="1"></Button>
     </GridLayout>
-    <Button text="Take Picture" id="takePicture" tap="handleTakePicture"></Button>
+
 
 </Page>

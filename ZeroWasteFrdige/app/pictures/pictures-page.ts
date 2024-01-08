@@ -34,7 +34,35 @@ export function savePicture(imageAsset) {
             }
     })};
 
+import * as imagePickerPlugin from '@nativescript/imagepicker';
 
+export function selectImage() {
+    let imagePickerObj = imagePickerPlugin.create({
+        mode: "single"});
+    imagePickerObj
+        .authorize()
+        .then((authResult) => {
+            if(authResult.authorized) {
+                return imagePickerObj.present()
+                    .then(function(selection) {
+                        selection.forEach(function(selected) {
+                            this.imageSource = selected.asset;
+                            this.type = selected.type;
+                            this.filesize = selected.filesize;
+                            //etc
+                        });
+                    });
+            } else {
+                // process authorization not granted.
+                console.log('autorization not granted')
+                // need to ask for permissions
+            }
+        })    
+        .catch(function (e) {
+            // process error
+            console.log('there has been an error')
+        });
+}
 
-      
+     
 
