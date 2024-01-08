@@ -3,7 +3,7 @@ import { NavigatedData, Page } from '@nativescript/core'
 import { PictureViewModel } from './picture-view-model'
 import * as camera from '@nativescript/camera'
 import { Image } from '@nativescript/core'
-import { requestPermissions } from '@nativescript/camera';
+import { ImageSource, knownFolders, path } from '@nativescript/core';
 
 export function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
@@ -11,23 +11,30 @@ export function onNavigatingTo(args: NavigatedData) {
 }
 
 export function handleTakePicture() {
-    Dialogs.confirm({
-        title: 'Do you want to take a picture?',
-        message: 'Are you sure you want to do this?',
-        okButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if(result) {
-            console.log('user is sure')
-            camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true}).then((imageAsset) => {
-                console.log("Result is an image asset instance")
-                var image = new Image()
-                image.src = imageAsset
-            }).catch((err) => {
-                console.log("Error -> " + err.message)
-            })
+    camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true}).then((imageAsset) => {
+        console.log('image taken')
+    }).catch((err) => {
+        console.log("Error -> " + err.message)
+    })
+}
+
+// ToDo: not sure how to call/use this: 
+export function savePicture(imageAsset) {
+    ImageSource.fromAsset(imageAsset)
+            .then((imageSource: ImageSource) => {
+            const folderPath: string = knownFolders.documents().path;
+            const fileName: string = "test.jpg";
+            const filePath: string = path.join(folderPath, fileName);
+            const saved: boolean = imageSource.saveToFile(filePath, "jpg");
+
+            if (saved) {
+                console.log("Gallery: " + this._dataItem.picture_url);
+                console.log("Saved: " + filePath);
+                console.log("Image saved successfully!");
             }
-        })
-    }
+    })};
+
+
+
       
 
