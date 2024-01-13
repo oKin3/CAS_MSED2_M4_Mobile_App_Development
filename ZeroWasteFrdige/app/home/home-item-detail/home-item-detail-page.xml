@@ -8,5 +8,7 @@
     <GridLayout   rows="115, 115">
         <Label class="m-10 h3" text="{{ image }}"  row="0" />
         <Label class="m-10 h3" text="{{ date }}" row="1" />
+        <Button text="Edit" tap="edit" row="2"></Button>
     </GridLayout>
+
 </Page>

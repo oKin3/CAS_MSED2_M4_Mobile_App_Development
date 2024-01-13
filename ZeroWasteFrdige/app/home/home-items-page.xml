@@ -11,7 +11,7 @@
         <Button text="Add" tap="add"></Button>
     </StackLayout>
     <Label text="{{title}}" class="text-3xl text-center" />
-    <ListView items="{{todos}}" separatorColor="gray" rowHeight="50" background="lightgray" class="list-group" itemTap="remove">
+    <ListView items="{{todos}}" separatorColor="gray" rowHeight="50" background="lightgray" class="list-group" itemTap="onItemTap">
         <ListView.itemTemplate>
             <StackLayout class="list-group-item">
                 <Label text="{{ name || 'Preparing data...' }}" textWrap="true" class="title" />

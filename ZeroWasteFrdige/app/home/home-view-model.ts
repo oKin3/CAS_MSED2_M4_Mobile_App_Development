@@ -26,7 +26,7 @@ export class HomeViewModel extends Observable {
   }
 
   add(newItem: string) {
-    this._items.push({ name: newItem });
+    this._items.push({ name: newItem, date: '2023-05-05', image: 'test-image' });
   }
 
   get title(): string {

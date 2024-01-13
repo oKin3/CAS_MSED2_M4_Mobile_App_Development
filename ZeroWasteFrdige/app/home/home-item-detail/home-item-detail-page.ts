@@ -13,3 +13,7 @@ export function onBackButtonTap(args: EventData) {
 
   page.frame.goBack()
 }
+
+export function edit(args: EventData) {
+  console.log('i clicked edit')
+}
