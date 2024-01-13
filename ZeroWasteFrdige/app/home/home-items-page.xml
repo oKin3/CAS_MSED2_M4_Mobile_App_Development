@@ -4,11 +4,19 @@
         <Label text="Home" />
     </ActionBar>
 
-    <ListView items="{{ items }}" itemTap="onItemTap">
+<StackLayout height="100%">
+    <StackLayout>
+        <Label text="New Item" class="text-3xl text-center" />
+        <TextField id="newItem" hint="Enter new Item" />
+        <Button text="Add" tap="add"></Button>
+    </StackLayout>
+    <Label text="{{title}}" class="text-3xl text-center" />
+    <ListView items="{{todos}}" separatorColor="gray" rowHeight="50" background="lightgray" class="list-group" itemTap="remove">
         <ListView.itemTemplate>
-            <StackLayout orientation="horizontal">
-                <Label text="{{ name }}" textWrap="true" />
+            <StackLayout class="list-group-item">
+                <Label text="{{ name || 'Preparing data...' }}" textWrap="true" class="title" />
             </StackLayout>
         </ListView.itemTemplate>
     </ListView>
+</StackLayout>
 </Page>

@@ -1,4 +1,4 @@
-import { View, ItemEventData, NavigatedData, Page } from '@nativescript/core'
+import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page } from '@nativescript/core'
 
 import { HomeViewModel } from './home-view-model'
 import { Item } from './shared/item'
@@ -29,11 +29,20 @@ export function onItemTap(args: ItemEventData) {
   })
 }
 
-
 export function remove(args: ItemEventData){ 
   console.log(args.index)
   model.remove(args.index)
-  const list = page.getViewById('listView');
-  list.refresh();
 }
 
+export function reload(args: SwipeGestureEventData) {
+  console.log('SWIPING')
+  if (args.direction === SwipeDirection.down) {
+  model.reset();
+  }
+}
+
+export function add() {
+  console.log('ADDING')
+  let newItem = page.getViewById("newItem");
+  model.add(newItem.name);
+}

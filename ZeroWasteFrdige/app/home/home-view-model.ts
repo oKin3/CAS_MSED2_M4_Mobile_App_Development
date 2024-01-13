@@ -1,32 +1,41 @@
-import { Observable } from '@nativescript/core'
+import { Observable, ObservableArray } from '@nativescript/core'
 import { Item } from './shared/item'
 import items from './shared/items.json'
 
 export class HomeViewModel extends Observable {
-  private _items: Item[];
+  private _items: ObservableArray<Item>;
 
   constructor() {
     super()
-
-    this._items = this.load();
+    this.load();
   }
-  load(): Item[] {
-    console.log('LOADING ITEMS')
-    return items.todos;
-  }
+  
+  load(): void {
+    this._items = new ObservableArray([...items.todos]);
+    this.notifyPropertyChange('todos', this._items);
+    this.notifyPropertyChange('title', this.title);
+    }
 
   remove(indexToDelete: number) {
-    console.log('REMOVING ITEM 2');
     this._items.splice(indexToDelete, 1);
+    this.notifyPropertyChange('title', this.title);
+  }
+
+  reset() {
+    this.load();
+  }
+
+  add(newItem: string) {
+    this._items.push({ name: newItem });
   }
 
   get title(): string {
-    console.log('I am in title')
-    return `A list of ${this._items.length} todos`;
-    }
-  get todos(): Item[] {
+    return `A list of ${this._items.length} items`;
+  }
+
+  get todos(): ObservableArray<Item> {
     return this._items;
-    }
+  }
 }
 
 
