@@ -10,13 +10,17 @@
         <TextField id="newItemName" hint="Enter new Item Name" />
         <TextField id="newItemDate" hint="Enter new Item Date" />
         <TextField id="newItemImage" hint="Enter new Item Image" />
-        <Button text="Add" tap="add"></Button>
+        <Button text="Add" tap="add" background="gray"></Button>
     </StackLayout>
     <Label text="{{title}}" class="text-3xl text-center" />
-    <ListView items="{{todos}}" separatorColor="gray" rowHeight="50" background="lightgray" class="list-group" itemTap="onItemTap">
+    <ListView items="{{todos}}" separatorColor="black" background="gray" class="list-group" itemTap="onItemTap">
         <ListView.itemTemplate>
-            <StackLayout class="list-group-item">
-                <Label text="{{ name || 'Preparing data...' }}" textWrap="true" class="title" />
+            <StackLayout>
+                <GridLayout   rows="115, 115" rows="115, 115">
+                    <Label class="m-10 h3" text="{{ name }}"  row="0" col="0" colSpan="2" />
+                    <Label class="m-10 h3" text="{{ image }}" row="1" col="0" />
+                    <Label class="m-10 h3" text="{{ date }}" row="2" col="1" />
+                </GridLayout>
             </StackLayout>
         </ListView.itemTemplate>
     </ListView>

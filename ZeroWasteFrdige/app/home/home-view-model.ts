@@ -31,6 +31,11 @@ export class HomeViewModel extends Observable {
     }
   }
 
+  edit(indexToDelete: number, itemNewName: string, itemNewDate: string, itemNewImage: string) {
+    this._items.splice(indexToDelete, 1, {name: itemNewName, date: itemNewDate, image: itemNewImage});
+    this.notifyPropertyChange('title', this.title);
+  }
+
   get title(): string {
     return `A list of ${this._items.length} items`;
   }

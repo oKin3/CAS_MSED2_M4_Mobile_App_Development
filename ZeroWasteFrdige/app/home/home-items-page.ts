@@ -1,4 +1,4 @@
-import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page } from '@nativescript/core'
+import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page, Dialogs } from '@nativescript/core'
 
 import { HomeViewModel } from './home-view-model'
 import { Item } from './shared/item'
@@ -12,7 +12,7 @@ export function onNavigatingTo(args: NavigatedData) {
   page.bindingContext = model
 }
 
-export function onItemTap(args: ItemEventData) {
+export function onItemTap2(args: ItemEventData) {
   const view = <View>args.view
   const page = <Page>view.page
   const tappedItem = <Item>view.bindingContext
@@ -29,13 +29,31 @@ export function onItemTap(args: ItemEventData) {
   })
 }
 
-export function remove(args: ItemEventData){ 
-  console.log(args.index)
-  model.remove(args.index)
+export function onItemTap(args: ItemEventData) {
+  Dialogs.action({
+    title: 'Choose your action',
+    cancelButtonText: 'Cancel',
+    actions: ['Edit', 'Delete'],
+    cancelable: true,
+  }).then((result) => {
+    console.log(result)
+    if (result === 'Edit') {
+      Dialogs.prompt({
+        title: 'Prompt!',
+        message: 'Enter the new name',
+        defaultText: 'enter new name',
+        okButtonText: 'OK',
+        neutralButtonText: 'Cancel',
+      }).then((result) => {
+        model.edit(args.index, result.text, result.text, result.text)
+      })
+    } else if(result == 'Delete') {
+      model.remove(args.index)
+    }
+  })
 }
 
 export function reload(args: SwipeGestureEventData) {
-  console.log('SWIPING')
   if (args.direction === SwipeDirection.down) {
   model.reset();
   }
