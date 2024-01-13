@@ -7,7 +7,9 @@
 <StackLayout height="100%">
     <StackLayout>
         <Label text="New Item" class="text-3xl text-center" />
-        <TextField id="newItem" hint="Enter new Item" />
+        <TextField id="newItemName" hint="Enter new Item Name" />
+        <TextField id="newItemDate" hint="Enter new Item Date" />
+        <TextField id="newItemImage" hint="Enter new Item Image" />
         <Button text="Add" tap="add"></Button>
     </StackLayout>
     <Label text="{{title}}" class="text-3xl text-center" />

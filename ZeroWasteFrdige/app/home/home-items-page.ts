@@ -42,6 +42,8 @@ export function reload(args: SwipeGestureEventData) {
 }
 
 export function add() {
-  let newItem = page.getViewById("newItem");
-  model.add(newItem.name);
+  let newItemName = page.getViewById("newItemName");
+  let newItemDate = page.getViewById("newItemDate");
+  let newItemImage = page.getViewById("newItemImage");
+  model.add(newItemName.text, newItemDate.text, newItemImage.text);
 }
