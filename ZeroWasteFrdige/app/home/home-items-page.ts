@@ -3,9 +3,13 @@ import { View, ItemEventData, NavigatedData, Page } from '@nativescript/core'
 import { HomeViewModel } from './home-view-model'
 import { Item } from './shared/item'
 
+let page;
+let model;
+
 export function onNavigatingTo(args: NavigatedData) {
-  const page = <Page>args.object
-  page.bindingContext = new HomeViewModel()
+  page = <Page>args.object
+  model = new HomeViewModel();
+  page.bindingContext = model
 }
 
 export function onItemTap(args: ItemEventData) {
@@ -24,3 +28,12 @@ export function onItemTap(args: ItemEventData) {
     },
   })
 }
+
+
+export function remove(args: ItemEventData){ 
+  console.log(args.index)
+  model.remove(args.index)
+  const list = page.getViewById('listView');
+  list.refresh();
+}
+
