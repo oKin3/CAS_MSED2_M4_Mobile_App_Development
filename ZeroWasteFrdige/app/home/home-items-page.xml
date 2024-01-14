@@ -16,10 +16,10 @@
     <ListView items="{{todos}}" separatorColor="black" background="gray" class="list-group" itemTap="onItemTap">
         <ListView.itemTemplate>
             <StackLayout>
-                <GridLayout   rows="115, 115" rows="115, 115">
-                    <Label class="m-10 h3" text="{{ name }}"  row="0" col="0" colSpan="2" />
-                    <Label class="m-10 h3" text="{{ image }}" row="1" col="0" />
-                    <Label class="m-10 h3" text="{{ date }}" row="2" col="1" />
+                <GridLayout   columns="*, 2*" rows="2*, 3*">
+                    <Label class="m-10 h3" text="{{ name }}"  row="0" col="0"/>
+                    <Label class="m-10 h3" text="{{ date }}" row="0" col="1" />
+                    <Label class="m-10 h3" text="{{ image }}" row="1" col="0" colspam="2" />
                 </GridLayout>
             </StackLayout>
         </ListView.itemTemplate>

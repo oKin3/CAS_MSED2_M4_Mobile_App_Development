@@ -12,23 +12,6 @@ export function onNavigatingTo(args: NavigatedData) {
   page.bindingContext = model
 }
 
-export function onItemTap2(args: ItemEventData) {
-  const view = <View>args.view
-  const page = <Page>view.page
-  const tappedItem = <Item>view.bindingContext
-
-  page.frame.navigate({
-    moduleName: 'home/home-item-detail/home-item-detail-page',
-    context: tappedItem,
-    animated: true,
-    transition: {
-      name: 'slide',
-      duration: 200,
-      curve: 'ease',
-    },
-  })
-}
-
 export function onItemTap(args: ItemEventData) {
   Dialogs.action({
     title: 'Choose your action',
@@ -39,9 +22,9 @@ export function onItemTap(args: ItemEventData) {
     console.log(result)
     if (result === 'Edit') {
       Dialogs.prompt({
-        title: 'Prompt!',
+        title: 'Edit',
         message: 'Enter the new name',
-        defaultText: 'enter new name',
+        defaultText: 'new name',
         okButtonText: 'OK',
         neutralButtonText: 'Cancel',
       }).then((result) => {
