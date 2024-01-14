@@ -1,9 +1,10 @@
-import { Dialogs } from '@nativescript/core'
 import { NavigatedData, Page } from '@nativescript/core'
 import { PictureViewModel } from './picture-view-model'
 import * as camera from '@nativescript/camera'
-import { Image } from '@nativescript/core'
 import { ImageSource, knownFolders, path } from '@nativescript/core';
+import { requestPermissions } from '@nativescript/camera'
+import * as imagePickerPlugin from '@nativescript/imagepicker';
+requestPermissions();
 
 export function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
@@ -11,15 +12,18 @@ export function onNavigatingTo(args: NavigatedData) {
 }
 
 export function handleTakePicture() {
-    camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true}).then((imageAsset) => {
+    camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true})
+    .then((imageAsset) => {
         console.log('image taken')
-    }).catch((err) => {
+        savePicture(imageAsset, 'your_picture_url');})
+    .catch((err) => {
         console.log("Error -> " + err.message)
     })
 }
 
-// ToDo: not sure how to call/use this: 
-export function savePicture(imageAsset) {
+
+export function savePicture(imageAsset, picture_url) {
+    console.log("Try to save picture");
     ImageSource.fromAsset(imageAsset)
             .then((imageSource: ImageSource) => {
             const folderPath: string = knownFolders.documents().path;
@@ -28,40 +32,39 @@ export function savePicture(imageAsset) {
             const saved: boolean = imageSource.saveToFile(filePath, "jpg");
 
             if (saved) {
-                console.log("Gallery: " + this._dataItem.picture_url);
+                console.log("Gallery: " + picture_url);
                 console.log("Saved: " + filePath);
                 console.log("Image saved successfully!");
+            } else {
+                console.log("Image could not be saved!");
             }
-    })};
+    }).catch((err) => {
+        console.log("Error -> " + err.message)
+    })
+};
 
-import * as imagePickerPlugin from '@nativescript/imagepicker';
+
 
 export function selectImage() {
     let imagePickerObj = imagePickerPlugin.create({
-        mode: "single"});
+    mode: "single"});
     imagePickerObj
         .authorize()
-        .then((authResult) => {
-            if(authResult.authorized) {
-                return imagePickerObj.present()
-                    .then(function(selection) {
-                        selection.forEach(function(selected) {
-                            this.imageSource = selected.asset;
-                            this.type = selected.type;
-                            this.filesize = selected.filesize;
-                            //etc
-                        });
+        .then(() => {
+            this.imageAssets = [];
+            return imagePickerObj.present()
+                .then(function(selection) {
+                    selection.forEach(function(selected) {
+                        console.log("Selection done: " + JSON.stringify(selection));
+                        // this.imageSource = selected.asset;
+                        // this.type = selected.type;
+                        // this.filesize = selected.filesize;
+                        // this.imageAssets = selection;
                     });
-            } else {
-                // process authorization not granted.
-                console.log('autorization not granted')
-                // need to ask for permissions
-            }
-        })    
-        .catch(function (e) {
-            // process error
-            console.log('there has been an error')
-        });
+                });
+        }).catch((err) => {
+            console.log("Error -> " + err.message)
+        })
 }
 
      
