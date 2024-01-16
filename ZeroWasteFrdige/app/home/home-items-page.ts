@@ -2,9 +2,11 @@ import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedDa
 
 import { HomeViewModel } from './home-view-model'
 import { Item } from './shared/item'
+import * as imagePickerPlugin from '@nativescript/imagepicker';
 
 let page;
 let model;
+let selectedPicturePath;
 
 export function onNavigatingTo(args: NavigatedData) {
   page = <Page>args.object
@@ -45,6 +47,31 @@ export function reload(args: SwipeGestureEventData) {
 export function add() {
   let newItemName = page.getViewById("newItemName");
   let newItemDate = page.getViewById("newItemDate");
-  let newItemImage = page.getViewById("newItemImage");
-  model.add(newItemName.text, newItemDate.text, newItemImage.text);
+  model.add(newItemName.text, newItemDate.text, selectedPicturePath);
+  selectedPicturePath = ""
+}
+
+export function selectImage() {
+  let imagePickerObj = imagePickerPlugin.create({
+  mode: "single"});
+
+  imagePickerObj
+      .authorize()
+      .then(() => {
+          this.imageAssets = [];
+          return imagePickerObj.present()
+              .then(function(selection) {
+                  selection.forEach(function(selected) {
+                      console.log("Selection done: " + JSON.stringify(selection));
+                      selectedPicturePath = selected.path;
+                      // model.add("name", new Date().toISOString().split('T')[0], selected.path);
+                      // this.imageSource = selected.asset;
+                      // this.type = selected.type;
+                      // this.filesize = selected.filesize;
+                      // this.imageAssets = selection;
+                  });
+              });
+      }).catch((err) => {
+          console.log("Error -> " + err.message)
+      })
 }
