@@ -71,6 +71,7 @@ export function selectImage() {
                       console.log("Selection done: " + JSON.stringify(selection));
                       selectedPicturePath = selected.path;
                       page.getViewById("selectImage").backgroundColor = "#075B88";
+                      page.getViewById("takePicture").backgroundColor = "grey";
                   });
               });
       }).catch((err) => {
@@ -91,6 +92,7 @@ export function takePicture() {
       if (saved) {
         selectedPicturePath = filePath
         page.getViewById("takePicture").backgroundColor = "#075B88";
+        page.getViewById("selectImage").backgroundColor = "grey";
         console.log("Saved: " + filePath);
         console.log("Image saved successfully!");
       } else {
