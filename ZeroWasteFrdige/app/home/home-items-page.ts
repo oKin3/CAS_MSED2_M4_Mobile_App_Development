@@ -3,6 +3,8 @@ import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedDa
 import { HomeViewModel } from './home-view-model'
 import { Item } from './shared/item'
 import * as imagePickerPlugin from '@nativescript/imagepicker';
+import * as camera from '@nativescript/camera'
+import { ImageSource, knownFolders, path } from '@nativescript/core';
 
 let page;
 let model;
@@ -49,6 +51,10 @@ export function add() {
   let newItemDate = page.getViewById("newItemDate");
   model.add(newItemName.text, newItemDate.text, selectedPicturePath);
   selectedPicturePath = ""
+  newItemName.text = ""
+  newItemDate.text = ""
+  page.getViewById("takePicture").backgroundColor = "grey";
+  page.getViewById("selectImage").backgroundColor = "grey";
 }
 
 export function selectImage() {
@@ -64,14 +70,32 @@ export function selectImage() {
                   selection.forEach(function(selected) {
                       console.log("Selection done: " + JSON.stringify(selection));
                       selectedPicturePath = selected.path;
-                      // model.add("name", new Date().toISOString().split('T')[0], selected.path);
-                      // this.imageSource = selected.asset;
-                      // this.type = selected.type;
-                      // this.filesize = selected.filesize;
-                      // this.imageAssets = selection;
+                      page.getViewById("selectImage").backgroundColor = "#075B88";
                   });
               });
       }).catch((err) => {
           console.log("Error -> " + err.message)
-      })
+    })
+}
+
+export function takePicture() {
+  camera.takePicture({width: 300, height: 300, keepAspectRatio: false, saveToGallery: true})
+  .then((imageAsset) => {
+    console.log('image taken')
+    ImageSource.fromAsset(imageAsset)
+      .then((imageSource: ImageSource) => {
+      const folderPath: string = knownFolders.documents().path;
+      const fileName: string = "picture_" + new Date().getTime() + ".jpg";
+      const filePath: string = path.join(folderPath, fileName);
+      const saved: boolean = imageSource.saveToFile(filePath, "jpg");
+      if (saved) {
+        selectedPicturePath = filePath
+        page.getViewById("takePicture").backgroundColor = "#075B88";
+        console.log("Saved: " + filePath);
+        console.log("Image saved successfully!");
+      } else {
+          console.log("Image could not be saved!");
+      }
+    })
+  })
 }

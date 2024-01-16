@@ -9,7 +9,10 @@
         <Label text="New Item" class="text-3xl text-center" />
         <TextField id="newItemName" hint="Enter new Item Name" />
         <TextField id="newItemDate" hint="Enter new Item Date" />
-        <Button text="Select Picture" tap="selectImage" background="gray"></Button>
+        <StackLayout orientation="horizontal">
+            <Button text="Select Picture" tap="selectImage" id="selectImage" background="gray" width="33%"></Button>
+            <Button text="Take Picture" tap="takePicture" id="takePicture" background="gray" width="33%"></Button>
+        </StackLayout>
         <Button text="Add" tap="add" background="gray"></Button>
     </StackLayout>
     <Label text="{{title}}" class="text-3xl text-center" />
