@@ -1,6 +1,3 @@
 {
-  "todos": [
-    {"name": "Item 1", "image": "Image for Item 1", "date": "2023-01-02"},
-    {"name": "Item 2", "image": "Image for Item 2", "date": "2023-01-12"} 
-  ]
+  "todos": []
 }
