@@ -8,6 +8,6 @@
         <Button text="Take Picture" id="takePicture" tap="handleTakePicture" row="0"></Button>
         <Button text="Select Picture" id="selectPicture" tap="selectImage" row="1"></Button>
     </GridLayout>
-
+    
 
 </Page>

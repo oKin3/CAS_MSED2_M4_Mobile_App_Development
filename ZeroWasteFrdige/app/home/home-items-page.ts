@@ -1,7 +1,5 @@
-import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page, Dialogs } from '@nativescript/core'
-
+import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page, Dialogs, EventData, DatePicker } from '@nativescript/core'
 import { HomeViewModel } from './home-view-model'
-import { Item } from './shared/item'
 import * as imagePickerPlugin from '@nativescript/imagepicker';
 import * as camera from '@nativescript/camera'
 import { ImageSource, knownFolders, path } from '@nativescript/core';
@@ -25,36 +23,52 @@ export function onItemTap(args: ItemEventData) {
   }).then((result) => {
     console.log(result)
     if (result === 'Edit') {
-      Dialogs.prompt({
-        title: 'Edit',
-        message: 'Enter the new name',
-        defaultText: 'new name',
-        okButtonText: 'OK',
-        neutralButtonText: 'Cancel',
-      }).then((result) => {
-        model.edit(args.index, result.text, result.text, result.text)
-      })
+      edit(args.index)
     } else if(result == 'Delete') {
       model.remove(args.index)
     }
   })
 }
 
+export function edit(indexToEdit: number) {
+  let oldName = model.getName(indexToEdit)
+  
+  Dialogs.prompt({
+    title: 'Edit',
+    message: 'Enter the new name',
+    defaultText: oldName,
+    okButtonText: 'OK',
+    neutralButtonText: 'Cancel',
+  }).then((result) => {
+      console.log(result)
+      if (result.result === true)
+      {
+        model.editName(indexToEdit, result.text)
+      }
+  })
+}
+
+
 export function reload(args: SwipeGestureEventData) {
   if (args.direction === SwipeDirection.down) {
-  model.reset();
+    model.reset();
   }
 }
 
 export function add() {
   let newItemName = page.getViewById("newItemName");
   let newItemDate = page.getViewById("newItemDate");
-  model.add(newItemName.text, newItemDate.text, selectedPicturePath);
+  const date = newItemDate.date
+  const day = date.getDate().toString().padStart(2, "0")
+  const month = (date.getMonth() + 1).toString().padStart(2, "0")
+  const year = date.getFullYear().toString()
+  let formatedDate = day + "." + month + "." + year
+
+  model.add(newItemName.text, formatedDate, selectedPicturePath);
   selectedPicturePath = ""
   newItemName.text = ""
-  newItemDate.text = ""
-  page.getViewById("takePicture").backgroundColor = "grey";
-  page.getViewById("selectImage").backgroundColor = "grey";
+  page.getViewById("takePicture").backgroundColor = "#9DB2BF";
+  page.getViewById("selectImage").backgroundColor = "#9DB2BF";
 }
 
 export function selectImage() {
@@ -71,7 +85,7 @@ export function selectImage() {
                       console.log("Selection done: " + JSON.stringify(selection));
                       selectedPicturePath = selected.path;
                       page.getViewById("selectImage").backgroundColor = "#075B88";
-                      page.getViewById("takePicture").backgroundColor = "grey";
+                      page.getViewById("takePicture").backgroundColor = "#9DB2BF";
                   });
               });
       }).catch((err) => {
@@ -92,7 +106,7 @@ export function takePicture() {
       if (saved) {
         selectedPicturePath = filePath
         page.getViewById("takePicture").backgroundColor = "#075B88";
-        page.getViewById("selectImage").backgroundColor = "grey";
+        page.getViewById("selectImage").backgroundColor = "#9DB2BF";
         console.log("Saved: " + filePath);
         console.log("Image saved successfully!");
       } else {

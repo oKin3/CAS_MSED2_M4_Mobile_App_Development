@@ -3,7 +3,7 @@
         <Frame defaultPage="home/home-items-page" />
     </TabViewItem>
 
-    <TabViewItem title="Pictures" >
+<!--     <TabViewItem title="Pictures" >
         <Frame defaultPage="pictures/pictures-page" />
-    </TabViewItem>
-</TabView>
+    </TabViewItem> -->
+</TabView> 
