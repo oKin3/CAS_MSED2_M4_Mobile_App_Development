@@ -98,6 +98,20 @@ export class HomeViewModel extends Observable {
       }
     }
   }
-}
+
+  sortItems() {
+    console.log('Sorting');
+    this._items.sort((a, b) => {
+      let [dayA, monthA, yearA] = a.date.split('.');
+      let dateA = new Date(+yearA, +monthA - 1, +dayA);
+      let [dayB, monthB, yearB] = b.date.split('.');
+      let dateB = new Date(+yearB, +monthB - 1, +dayB);
+      if (dateA.getTime() > dateB.getTime()) return 1;
+      if (dateA.getTime() < dateB.getTime()) return -1;
+      return 0;
+    });
+    }
+  }
+
 
 

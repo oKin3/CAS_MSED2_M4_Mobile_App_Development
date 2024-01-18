@@ -142,3 +142,8 @@ export function takePicture() {
     })
   })
 }
+
+export function sortItems() {
+  model.sortItems()
+  page.getViewById("allItems").refresh()
+}

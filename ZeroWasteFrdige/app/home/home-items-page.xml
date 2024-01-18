@@ -14,9 +14,10 @@
             <Button text="Take Picture" tap="takePicture" id="takePicture" background="#9DB2BF" style="color: black;" width="43%"></Button>
         </StackLayout>
         <Button text="Add" tap="add" background="#9DB2BF" style="color: black;"></Button>
+        <Button text="Sort" tap="sortItems" background="#9DB2BF" style="color: black;"></Button>
     </StackLayout>
     <Label text="{{title}}" class="text-3xl text-center" />
-    <ListView items="{{entries}}" separatorColor="black" background="#526D82" class="list-group" itemTap="onItemTap">
+    <ListView id="allItems" items="{{entries}}" separatorColor="black" background="#526D82" class="list-group" itemTap="onItemTap">
         <ListView.itemTemplate>
             <StackLayout>
                 <GridLayout columns="70, *" rows="*, *">
