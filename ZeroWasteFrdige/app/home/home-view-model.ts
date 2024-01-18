@@ -34,11 +34,6 @@ export class HomeViewModel extends Observable {
     }
   }
 
-  edit(indexToDelete: number, itemNewName: string, itemNewDate: string, itemNewImage: string) {
-    this._items.splice(indexToDelete, 1, {name: itemNewName, date: itemNewDate, image: itemNewImage});
-    this.notifyPropertyChange('title', this.title);
-  }
-
   editName(indexToEdit: number, itemNewName: string) {
     let itemToEdit = this._items.getItem(indexToEdit);
     let updatedItem = {
@@ -110,8 +105,8 @@ export class HomeViewModel extends Observable {
       if (dateA.getTime() < dateB.getTime()) return -1;
       return 0;
     });
-    }
   }
+}
 
 
 

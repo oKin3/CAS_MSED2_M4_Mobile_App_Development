@@ -1,4 +1,4 @@
-import { View, ItemEventData, SwipeGestureEventData, SwipeDirection, NavigatedData, Page, Dialogs, EventData, DatePicker } from '@nativescript/core'
+import { ItemEventData, NavigatedData, Page, Dialogs} from '@nativescript/core'
 import { HomeViewModel } from './home-view-model'
 import * as imagePickerPlugin from '@nativescript/imagepicker';
 import * as camera from '@nativescript/camera'
@@ -73,13 +73,6 @@ export function edit(indexToEdit: number) {
         })
     }
   })
-}
-
-
-export function reload(args: SwipeGestureEventData) {
-  if (args.direction === SwipeDirection.down) {
-    model.reset();
-  }
 }
 
 export function add() {
