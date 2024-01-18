@@ -8,10 +8,10 @@
     <StackLayout>
         <Label text="New Item" class="text-3xl text-center" />
         <TextField id="newItemName" hint="Enter new Item Name" />
-        <DatePicker id="newItemDate" date="{{ date }}" background="#9DB2BF" />
+        <DatePicker id="newItemDate" date="{{ date }}" background="#9DB2BF" width="90%" />
         <StackLayout orientation="horizontal">
-            <Button text="Select Picture" tap="selectImage" id="selectImage" background="#9DB2BF" style="color: black;" width="33%"></Button>
-            <Button text="Take Picture" tap="takePicture" id="takePicture" background="#9DB2BF" style="color: black;" width="33%"></Button>
+            <Button text="Select Picture" tap="selectImage" id="selectImage" background="#9DB2BF" style="color: black;" width="43%"></Button>
+            <Button text="Take Picture" tap="takePicture" id="takePicture" background="#9DB2BF" style="color: black;" width="43%"></Button>
         </StackLayout>
         <Button text="Add" tap="add" background="#9DB2BF" style="color: black;"></Button>
     </StackLayout>

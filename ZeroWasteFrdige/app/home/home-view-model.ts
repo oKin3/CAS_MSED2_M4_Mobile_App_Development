@@ -57,6 +57,24 @@ export class HomeViewModel extends Observable {
     return itemToEdit.name;
   }
 
+  editDate(indexToEdit: number, itemNewDate: string) {
+    let itemToEdit = this._items.getItem(indexToEdit);
+    let updatedItem = {
+      name: itemToEdit.name,
+      image: itemToEdit.image,
+      date: itemNewDate
+    };
+
+    this._items.setItem(indexToEdit, updatedItem);
+    this.notifyPropertyChange('title', this.title);
+    console.log(this._items.toJSON());
+  }
+
+  getDate(indexToEdit: number) {
+    let itemToEdit = this._items.getItem(indexToEdit);
+    return itemToEdit.date;
+  }
+
   get title(): string {
     return `A list of ${this._items.length} items`;
   }

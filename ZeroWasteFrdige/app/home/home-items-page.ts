@@ -3,6 +3,7 @@ import { HomeViewModel } from './home-view-model'
 import * as imagePickerPlugin from '@nativescript/imagepicker';
 import * as camera from '@nativescript/camera'
 import { ImageSource, knownFolders, path } from '@nativescript/core';
+camera.requestPermissions();
 
 let page;
 let model;
@@ -31,20 +32,46 @@ export function onItemTap(args: ItemEventData) {
 }
 
 export function edit(indexToEdit: number) {
-  let oldName = model.getName(indexToEdit)
-  
-  Dialogs.prompt({
-    title: 'Edit',
-    message: 'Enter the new name',
-    defaultText: oldName,
-    okButtonText: 'OK',
-    neutralButtonText: 'Cancel',
+  Dialogs.action({
+    title: 'Choose your action',
+    cancelButtonText: 'Cancel',
+    actions: ['Edit Name', 'Edit Date'],
+    cancelable: true,
   }).then((result) => {
-      console.log(result)
-      if (result.result === true)
-      {
-        model.editName(indexToEdit, result.text)
-      }
+    if (result === 'Edit Name') {
+      let oldName = model.getName(indexToEdit)
+      
+      Dialogs.prompt({
+        title: 'Edit',
+        message: 'Enter the new name',
+        defaultText: oldName,
+        okButtonText: 'OK',
+        neutralButtonText: 'Cancel',
+      }).then((result) => {
+          console.log(result)
+          if (result.result === true)
+          {
+            model.editName(indexToEdit, result.text)
+          }
+        })
+    }
+    else if (result === 'Edit Date') {
+      let oldDate = model.getDate(indexToEdit)
+      
+      Dialogs.prompt({
+        title: 'Edit',
+        message: 'Enter the new name',
+        defaultText: oldDate,
+        okButtonText: 'OK',
+        neutralButtonText: 'Cancel',
+      }).then((result) => {
+          console.log(result)
+          if (result.result === true)
+          {
+            model.editDate(indexToEdit, result.text)
+          }
+        })
+    }
   })
 }
 
